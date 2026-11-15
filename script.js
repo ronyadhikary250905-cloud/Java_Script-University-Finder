@@ -1,48 +1,60 @@
 
+const url = "https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json";
 
-let url = "https://universities.hipolabs.com/search?country=";
+let allUniversities = [];
+
 let btn = document.querySelector("button");
 
 btn.addEventListener("click", async () => {
     let country = document.querySelector("#country").value.trim();
     let state = document.querySelector("#state").value.trim();
-    
-console.log(country);
-console.log(state);
+
     if (!country) {
         alert("Please enter a country name.");
         return;
     }
 
-    let colArr = await getColleges(country);
+    btn.disabled = true;
+    btn.innerText = "Loading...";
 
-    // Filter state/province locally
-    if (state) {
-        colArr = colArr.filter(col =>
-            col["state-province"] &&
-            col["state-province"].toLowerCase().includes(state.toLowerCase())
+    try {
+        // Fetch university dataset
+        if (allUniversities.length === 0) {
+            let res = await axios.get(url);
+            allUniversities = res.data;
+        }
+
+        // Filter by country
+        let results = allUniversities.filter(col =>
+            col.country.toLowerCase() === country.toLowerCase()
         );
+
+        // Filter by state
+        if (state) {
+            results = results.filter(col =>
+                col["state-province"] &&
+                col["state-province"].toLowerCase().includes(state.toLowerCase())
+            );
+        }
+
+        console.log("Universities found:", results);
+
+        show(results);
+
+    } catch (error) {
+        console.error("Error:", error);
+        document.querySelector("#list").innerText =
+            "Unable to load university data. Please try again.";
     }
 
-    show(colArr);
+    btn.disabled = false;
+    btn.innerText = "Get Universities";
 });
 
-async function getColleges(country) {
-    try {
-        let res = await axios.get(
-            url + encodeURIComponent(country)
-        );
-
-        return res.data;
-    } catch (e) {
-        console.log("Error:", e);
-        return [];
-    }
-}
 
 function show(colArr) {
     let list = document.querySelector("#list");
-    list.innerText = "";
+    list.innerHTML = "";
 
     if (colArr.length === 0) {
         list.innerText =
@@ -52,7 +64,11 @@ function show(colArr) {
 
     for (let col of colArr) {
         let li = document.createElement("li");
+
         li.innerText = col.name;
+
         list.appendChild(li);
     }
 }
+
+
