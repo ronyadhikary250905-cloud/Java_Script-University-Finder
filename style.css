@@ -1,0 +1,120 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #dbeafe, #ede9fe, #f5f3ff);
+    padding: 50px 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #1e293b;
+    font-size: 36px;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+input {
+    width: 300px;
+    max-width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    background-color: white;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.25);
+}
+
+button {
+    padding: 14px 22px;
+    margin-left: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+#message {
+    margin: 25px 0 15px;
+    color: #475569;
+    font-size: 16px;
+}
+
+#list {
+    max-width: 750px;
+    margin: 25px auto;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 15px;
+    text-align: left;
+}
+
+#list li {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    font-size: 15px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    transition: 0.3s;
+}
+
+#list li:hover {
+    transform: translateY(-4px);
+    border-color: #a5b4fc;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.12);
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 35px 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+
+    button {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #list {
+        grid-template-columns: 1fr;
+    }
+}
+
